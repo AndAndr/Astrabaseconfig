@@ -1,0 +1,9 @@
+---
+  - name: restart exim4
+    ansible.builtin.systemd:
+      name: exim4
+      state: restarted
+    become: yes
+#  - name: Send test email
+#    when: exim_smarthost != None
+#    ansible.builtin.shell: /usr/bin/echo -e "{{ ansible_hostname }}\n{{ ansible_default_ipv4.address }}" | /usr/bin/mail -s "Test email from {{ ansible_hostname }}" {{ admins_email }}

@@ -1,0 +1,33 @@
+---
+  - name: Remove Astra default "server" directive from /etc/chrony/chrony.conf
+    ansible.builtin.lineinfile:
+      path: /etc/chrony/chrony.conf
+      state: absent
+      regexp: '^server(.*)'
+  - name: Remove Astra default "pool" directive from /etc/chrony/chrony.conf
+    ansible.builtin.lineinfile:
+      path: /etc/chrony/chrony.conf
+      state: absent
+      regexp: '^pool(.*)'
+  - name: Edit line /etc/chrony/chrony.conf - Add NTP1
+    ansible.builtin.lineinfile:
+      path: /etc/chrony/chrony.conf
+      state: present
+      line: 'server {{ NTP_IP1 }} iburst'
+      regexp: '^server {{ NTP_IP1 }}'
+  - name: Edit line /etc/chrony/chrony.conf - Add NTP2, if configured
+    when: NTP_IP2 != None
+    ansible.builtin.lineinfile:
+      path: /etc/chrony/chrony.conf
+      state: present
+      line: 'server {{ NTP_IP2 }} iburst'
+      regexp: '^server {{ NTP_IP2 }}'
+  - name: Edit line /etc/chrony/chrony.conf - Add NTP3, if configured
+    when: NTP_IP3 != None
+    ansible.builtin.lineinfile:
+      path: /etc/chrony/chrony.conf
+      state: present
+      line: 'server {{ NTP_IP3 }} iburst'
+      regexp: '^server {{ NTP_IP3 }}'
+    notify:
+    - restart chrony

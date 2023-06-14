@@ -1,0 +1,12 @@
+---
+# SYSLOG forward settings
+  - name: Add line to /etc/rsyslog.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/rsyslog.conf
+      state: present
+      line: '*.* @{{ SYSLOG_IP }}:514'
+      regexp: '^\*\.\*.*@'
+    notify:
+    - restart rsyslog
+

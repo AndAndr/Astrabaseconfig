@@ -1,0 +1,6 @@
+---
+  - name: restart snmpd
+    ansible.builtin.systemd:
+      name: snmpd
+      state: restarted
+    become: yes

@@ -1,0 +1,35 @@
+---
+# Remove and install pkgs
+  - name: Gather Services facts
+    service_facts:
+  - name: Stop ntp service for correct chrony installation
+    when: "'ntp' in services"
+    ansible.builtin.service:
+      name: ntp
+      state: stopped
+      enabled: no
+  - name: Remove {{ pkg2remove }}
+    ansible.builtin.apt:
+      name: '{{ pkg2remove }}'
+      state: absent
+      update_cache: yes
+      cache_valid_time: 600
+  - name: Install {{ pkg2install }}
+    ansible.builtin.apt:
+      name: '{{ pkg2install }}'
+      state: latest
+      update_cache: no
+  - name: Install open-vm-tools, if host is VMWare VM
+    when: ansible_virtualization_type == "VMware"
+    ansible.builtin.apt:
+      name: open-vm-tools
+      state: latest
+      update_cache: no
+  - name: Install zabbix-agent, if host is configured in variable "zabbix_IP"
+    when: zabbix_IP != None
+    ansible.builtin.apt:
+      name: zabbix-agent
+      state: latest
+      update_cache: no
+
+

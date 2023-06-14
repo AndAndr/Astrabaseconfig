@@ -1,0 +1,60 @@
+---
+  # All variables must be defined! Do not remove variables! You can remove only its value, marked as Optional
+  # No tabs, only spaces!
+
+  # Proxy settings:
+  proxy_host: proxy.some.domain  # Optional value
+  proxy_port: 8090
+  proxy_noproxy: 192.168.0.0/24,127.0.0.0/8,localhost # Comma delimited
+
+  #Repository settings:
+  AstraCE_localrepo: deb [trusted=yes arch=amd64]  http://astra.some.domain/mirror/download.astralinux.ru/astra/stable/orel/repository/  orel main contrib non-free
+  AstraSE_localrepo: deb http://astra.some.domain/repo-base-1.7.3-03.11.2022_15.53/ 1.7_x86-64  main contrib non-free
+
+  # DNS settings. Minimum IP = 1 Maximum IP = 3
+  DNS_IP1: 192.168.100.101  #Must have
+  DNS_IP2: 192.168.100.102  # Optional value
+  DNS_IP3: 192.168.100.103  # Optional value
+  DNS_searchname: some.domain. some.domain2.   # Optional value. With dots - normalno
+
+  # SYSLOG settings
+  SYSLOG_IP: 192.168.100.104  # Optional value
+
+  # APT packages settings
+  pkg2remove:
+  - logcheck
+  - ntp
+  pkg2install:
+  - chrony
+  - snmpd
+  - nscd
+  - mc
+  - exim4
+  - bsd-mailx
+  - dnsutils
+
+
+  # Zabbix settings. If you dont want to install/configure zabbix-agent you must remove value.
+  zabbix_IP: 192.168.100.105  # Optional value
+
+  # NTP Time Sources settings. Minimum NTP Hosts = 1 Maximum NTP Hosts = 3
+  NTP_IP1: 192.168.100.106
+  NTP_IP2:  # Optional value
+  NTP_IP3:  # Optional value
+
+  # SNMP monitoring settings
+  SNMP_sysLocation: SomeLocation
+  SNMP_sysContact: Admin@some.domain
+  SNMP_IP1: 192.168.100.107
+  SNMP_IP2: 192.168.100.108
+  SNMP_IP3: 192.168.100.109
+  SNMP_IP4: "{{ zabbix_IP }}"
+  SNMP_ROcommunity1: ROcommunity1
+  SNMP_ROcommunity2: ROcommunity2
+
+  # email settings
+  exim_smarthost: smtp.some.domain
+  admins_email: admin@some.domain
+
+  # Kaspersky settings
+  KSC_server: 192.168.100.110  # Optional value

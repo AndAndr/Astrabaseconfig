@@ -1,0 +1,66 @@
+---
+# SNMPd settings
+  - name: Edit line /etc/snmp/snmpd.conf - Disable listening on loopback IPv4 only
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: '#agentAddress  udp:127.0.0.1:161'
+      regexp: '^agentAddress  udp:127.0.0.1:161'
+  - name: Edit line /etc/snmp/snmpd.conf - Listen on all IPv4 interface
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'agentAddress  udp:161'
+      insertafter: '^#  Listen for connections on all interfaces.*$'
+  - name: Edit line /etc/snmp/snmpd.conf - Commenting view for "public" community num1 for more security
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: '#view   systemonly  included   .1.3.6.1.2.1.25.1'
+      regexp: '^view   systemonly  included   .1.3.6.1.2.1.25.1'
+  - name: Edit line /etc/snmp/snmpd.conf - Correcting view for "public" community num2 for more security
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'view   systemonly  included   .1.3.6.1.2.1.1.4'
+      regexp: '^view   systemonly  included   .1.3.6.1.2.1.1'
+  - name: Edit line /etc/snmp/snmpd.conf - Correcting sysLocation
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'sysLocation {{ SNMP_sysLocation }}'
+      regexp: '^sysLocation'
+  - name: Edit line /etc/snmp/snmpd.conf - Correcting sysContact
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'sysContact {{ SNMP_sysContact }}'
+      regexp: '^sysContact'
+  - name: Add {{ SNMP_IP1 }} /etc/snmp/snmpd.conf
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'rocommunity {{ SNMP_ROcommunity1 }} {{ SNMP_IP1 }}'
+      insertbefore: '^.*hrSystem groups only$'
+  - name: Add  {{ SNMP_IP2 }} /etc/snmp/snmpd.conf
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'rocommunity {{ SNMP_ROcommunity1 }} {{ SNMP_IP2 }}'
+      insertbefore: '^.*hrSystem groups only$'
+  - name: Add  {{ SNMP_IP3 }} /etc/snmp/snmpd.conf
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'rocommunity {{ SNMP_ROcommunity1 }} {{ SNMP_IP3 }}'
+      insertbefore: '^.*hrSystem groups only$'
+  - name: Add  {{ SNMP_IP4 }} /etc/snmp/snmpd.conf
+    when: SNMP_IP4 != None
+    ansible.builtin.lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      line: 'rocommunity {{ SNMP_ROcommunity2 }} {{ SNMP_IP4 }}'
+      insertbefore: '^.*hrSystem groups only$'
+    notify:
+    - restart snmpd
+

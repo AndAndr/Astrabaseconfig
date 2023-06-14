@@ -1,0 +1,18 @@
+---
+  - name: Edit line /etc/zabbix/zabbix_agentd.conf - Add "Server" directive, if "zabbix_IP" is configured
+    when: zabbix_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/zabbix/zabbix_agentd.conf
+      state: present
+      line: 'Server={{ zabbix_IP }}'
+      regexp: '^Server='
+  - name: Edit line /etc/zabbix/zabbix_agentd.conf - Add "ServerActive" directive, if "zabbix_IP" is configured
+    when: zabbix_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/zabbix/zabbix_agentd.conf
+      state: present
+      line: 'ServerActive={{ zabbix_IP }}'
+      regexp: '^ServerActive='
+    notify:
+      - restart zabbix-agent
+

@@ -1,0 +1,10 @@
+---
+  - name: Configuring proxy
+    when: proxy_host != None
+    template:
+      src: etc/environment.j2
+      dest: /etc/environment
+      owner: root
+      group: root
+      mode: 0644
+    become: yes

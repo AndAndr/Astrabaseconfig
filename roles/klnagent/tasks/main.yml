@@ -1,0 +1,31 @@
+---
+  - block:
+    - name: Create temp directory /tmp/klnagent, if "KSC_server" is configured
+      ansible.builtin.file:
+        path: /tmp/klnagent
+        state: directory
+        mode: '0755'
+    - name: Configuring answer file for klnagent, if "KSC_server" is configured
+      template:
+        src: tmp/klnagent/klnagentanswers.txt.j2
+        dest: /tmp/klnagent/klnagentanswers.txt
+        owner: root
+        group: root
+        mode: 0644
+    - name: Copy klnagent distrib in temp directory, if "KSC_server" is configured
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /tmp/klnagent/
+      with_fileglob: "files/tmp/klnagent/*"
+    - name: Create .deb files list in temp dir, if "KSC_server" is configured
+      find:
+        path: /tmp/klnagent
+        patterns: '*.deb'
+      register: deb_list
+    - name: Install klnagent package, if "KSC_server" is configured
+      ansible.builtin.apt:
+        deb: "{{ item.path }}"
+      loop: '{{ deb_list.files }}'
+      environment:
+        KLAUTOANSWERS: /tmp/klnagent/klnagentanswers.txt
+    when: KSC_server != None
