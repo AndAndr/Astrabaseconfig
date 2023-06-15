@@ -11,7 +11,7 @@ No
 Role Variables
 --------------
 
-Используются (group vars) переменные AstraSE_localrepo, AstraSE_localrepo в зависимости от значения ansible_os_family.
+Используются (group vars) переменные AstraCE_localrepo, AstraSE_localrepo в зависимости от значения ansible_os_family.
 
 Dependencies
 ------------
