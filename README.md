@@ -20,4 +20,5 @@ Ansible playbook baseconfig for AstraLinux CE|SE
 ## usage:
 - `ansible-playbook astrabaseconfig.yml`
 - для выполнения только некоторых ролей можно использовать тэги, например так:
+
 `ansible-playbook astrabaseconfig.yml --tags "resolvconf,astra-repo,pkgs-mgmt,exim4"`
