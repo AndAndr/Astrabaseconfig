@@ -50,10 +50,10 @@
   SNMP_IP3: 192.168.100.109
   SNMP_IP4: "{{ zabbix_IP }}"
   SNMP_ROcommunity1: ROcommunity1
-  SNMP_ROcommunity2: ROcommunity2
+  SNMP_ROcommunity2: ROcommunity2 # Optional value
 
   # email settings
-  exim_smarthost: smtp.some.domain
+  exim_smarthost: smtp.some.domain # Optional value
   admins_email: admin@some.domain
 
   # Kaspersky settings
