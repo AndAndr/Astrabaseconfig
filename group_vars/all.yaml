@@ -8,8 +8,10 @@
   proxy_noproxy: 192.168.0.0/24,127.0.0.0/8,localhost # Comma delimited
 
   #Repository settings:
-  AstraCE_localrepo: deb [trusted=yes arch=amd64]  http://astra.some.domain/mirror/download.astralinux.ru/astra/stable/orel/repository/  orel main contrib non-free
-  AstraSE_localrepo: deb http://astra.some.domain/repo-base-1.7.3-03.11.2022_15.53/ 1.7_x86-64  main contrib non-free
+  AstraSE_localrepo: 
+  - deb http://astra.some.domain/repo-base-1.7.3-03.11.2022_15.53/ 1.7_x86-64  main contrib non-free
+  - deb http://astra.some.domain/repo2/ 1.7_x86-64  main contrib non-free
+  - deb http://astra.some.domain/repo3/ 1.7_x86-64  main contrib non-free
 
   # DNS settings. Minimum IP = 1 Maximum IP = 3
   DNS_IP1: 192.168.100.101  #Must have
@@ -32,7 +34,7 @@
   - exim4
   - bsd-mailx
   - dnsutils
-
+  - rsyslog
 
   # Zabbix settings. If you dont want to install/configure zabbix-agent you must remove value.
   zabbix_IP: 192.168.100.105  # Optional value

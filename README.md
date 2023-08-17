@@ -1,5 +1,5 @@
 # Astrabaseconfig
-Ansible playbook baseconfig for AstraLinux CE|SE
+Ansible playbook baseconfig for AstraLinux SE
 
 ## 10 ролей:
 1. Настройка резолвера - **resolvconf**

@@ -1,36 +1,35 @@
 ---
-- name: Astra CE|SE Linux base config
+- name: Astra SE Linux base config
   gather_facts: yes
-  hosts: test
+  hosts: somehost
   become: yes
   roles:
     - role: resolvconf
       tags: resolvconf
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: proxy-settings
       tags: proxy-settings
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: astra-repo
       tags: astra-repo
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: pkgs-mgmt
       tags: pkgs-mgmt
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: syslog
       tags: syslog
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: snmpd
       tags: snmpd
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: chrony
       tags: chrony
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: exim4
       tags: exim4
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: zabbix-agent
       tags: zabbix_agent
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"
+      when: ansible_os_family == "Astra Linux"
     - role: klnagent
       tags: klnagent
-      when: ansible_os_family == "Astra Linux (Orel)" or ansible_os_family == "Astra Linux"

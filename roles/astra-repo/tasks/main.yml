@@ -1,38 +1,15 @@
 ---
-# Add local infra repo and remove proxy for apt if apt proxy settings is exist
-  - name: Remove all "Acquire" line in /etc/apt/apt.conf
-    ansible.builtin.lineinfile:
-      path: /etc/apt/apt.conf
-      backup: yes
-      state: absent
-      regexp: '^Acquire'
-  - name: Add comment for default cdrom repo for AstraSE
-    when: ansible_os_family == "Astra Linux" and AstraSE_localrepo != None
+  - name: Add comment for default cdrom repo
     ansible.builtin.replace:
       dest: /etc/apt/sources.list
       replace: '#\1'
       regexp: '(^deb\scdrom:.*$)'
-  - name: Add local infra repo for Astra SE
-    when: ansible_os_family == "Astra Linux" and AstraSE_localrepo != None
-    ansible.builtin.lineinfile:
-      path: /etc/apt/sources.list
-      state: present
-      line: '{{ AstraSE_localrepo }}'
-      regexp: '^{{ AstraSE_localrepo }}'
-  - name: Add comment for default non-infra repo for AstraCE
-    when: ansible_os_family == "Astra Linux (Orel)" and AstraCE_localrepo != None
-    ansible.builtin.replace:
-      dest: /etc/apt/sources.list
-      replace: '#\1'
-      regexp: '(^deb\shttps*:\/\/.*\.ru.*$)'
-  - name: Add local infra repo for Astra CE
-    when: ansible_os_family == "Astra Linux (Orel)" and AstraCE_localrepo != None
-    ansible.builtin.lineinfile:
-      path: /etc/apt/sources.list
-      state: present
-      line: '{{ AstraCE_localrepo }}'
-      regexp: '^{{ AstraCE_localrepo }}'
-
-
-
-
+  - name: Add local infra repo
+    when: AstraSE_localrepo != None
+    template:
+      src: etc/apt/sources.list.d/infra_repo.j2
+      dest: /etc/apt/sources.list.d/infra_repo.list
+      owner: root
+      group: root
+      mode: 0644
+    become: yes

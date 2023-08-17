@@ -3,6 +3,7 @@
   - name: Add options in /etc/resolv.conf
     ansible.builtin.lineinfile:
       path: /etc/resolv.conf
+      create: yes
       state: present
       line: 'options timeout:3 attempts:1 rotate'
       regexp: '^options'
