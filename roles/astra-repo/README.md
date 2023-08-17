@@ -1,7 +1,7 @@
 astra-repo
 =========
 
-Добавление локального репозитория Astra Linux.
+Добавление локальных инфраструктурных репозиториев Astra Linux SE.
 
 Requirements
 ------------
@@ -11,7 +11,7 @@ No
 Role Variables
 --------------
 
-Используются (group vars) переменные AstraSE_localrepo в зависимости от значения ansible_os_family.
+Используется (group vars) переменная AstraSE_localrepo.
 
 Dependencies
 ------------
