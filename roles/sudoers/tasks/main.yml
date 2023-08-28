@@ -1,0 +1,11 @@
+---
+# sudoers settings
+  - name: Add mailto in /etc/sudoers for email notifications
+    when: admins_email != None
+    ansible.builtin.lineinfile:
+      path: /etc/sudoers
+      state: present
+      line: 'Defaults	mailto="{{ admins_email }}"'
+      regexp: '^Defaults.*mailto='
+      insertbefore: '^# Host alias specification'
+    become: yes

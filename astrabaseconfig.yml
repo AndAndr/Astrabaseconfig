@@ -1,7 +1,7 @@
 ---
 - name: Astra SE Linux base config
   gather_facts: yes
-  hosts: somehost
+  hosts: testSE
   become: yes
   roles:
     - role: resolvconf
@@ -33,3 +33,7 @@
       when: ansible_os_family == "Astra Linux"
     - role: klnagent
       tags: klnagent
+      when: ansible_os_family == "Astra Linux"
+    - role: sudoers
+      tags: sudoers
+      when: ansible_os_family == "Astra Linux"
