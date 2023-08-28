@@ -12,6 +12,7 @@ Ansible playbook baseconfig for AstraLinux SE
 8. Настройка exim для возможности отправки почты - **exim4**
 9. Установка и настройка агента Zabbix - **zabbix-agent**
 10. Установка и настройка агента Касперского - **klnagent**
+11. Настройка sudoers для отправки почтовых сообщений - **sudoers**
 
 роли **resolvconf, astra-repo, pkgs-mgmt** должны выполняться до выполнения остальных ролей
 
