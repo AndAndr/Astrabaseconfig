@@ -37,3 +37,6 @@
     - role: sudoers
       tags: sudoers
       when: ansible_os_family == "Astra Linux"
+    - role: sshd
+      tags: sshd
+      when: ansible_os_family == "Astra Linux"
