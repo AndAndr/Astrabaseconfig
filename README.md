@@ -13,7 +13,7 @@ Ansible playbook baseconfig for AstraLinux SE
 9. Установка и настройка агента Zabbix - **zabbix-agent**
 10. Установка и настройка агента Касперского - **klnagent**
 11. Настройка sudoers для отправки почтовых сообщений - **sudoers**
-12. Настройка sshd для показа баннера - **sshd*
+12. Настройка sshd для показа баннера - **sshd**
 
 
 роли **resolvconf, astra-repo, pkgs-mgmt** должны выполняться до выполнения остальных ролей
