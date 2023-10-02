@@ -26,7 +26,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: syslog }
+         - { role: syslog-ng }
 
 License
 -------
