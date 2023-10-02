@@ -1,6 +1,6 @@
 ---
-  - name: restart rsyslog
+  - name: restart syslog-ng
     ansible.builtin.systemd:
-      name: rsyslog
+      name: syslog-ng
       state: restarted
     become: yes

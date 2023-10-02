@@ -1,7 +1,7 @@
 ---
 - name: Astra SE Linux base config
   gather_facts: yes
-  hosts: testSE
+  hosts: playground
   become: yes
   roles:
     - role: resolvconf
@@ -16,8 +16,8 @@
     - role: pkgs-mgmt
       tags: pkgs-mgmt
       when: ansible_os_family == "Astra Linux"
-    - role: syslog
-      tags: syslog
+    - role: syslog-ng
+      tags: syslog-ng
       when: ansible_os_family == "Astra Linux"
     - role: snmpd
       tags: snmpd

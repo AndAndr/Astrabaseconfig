@@ -1,0 +1,19 @@
+---
+# SYSLOG-NG forward settings
+  - name: Add line1 to /etc/syslog-ng/syslog-ng.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/syslog-ng/syslog-ng.conf
+      state: present
+      line: 'log { source(s_src); destination(d_net); };'
+      insertafter: '^# All messages send to a remote site$'
+  - name: Add line2 to /etc/syslog-ng/syslog-ng.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/syslog-ng/syslog-ng.conf
+      state: present
+      line: 'destination d_net { {{ SYSLOG_PROTO }}("{{ SYSLOG_IP }}" port({{ SYSLOG_PORT }}) log_fifo_size(1000)); };'
+      insertafter: '^# Send the messages to an other host$'
+    notify:
+    - restart syslog-ng
+

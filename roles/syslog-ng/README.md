@@ -1,7 +1,7 @@
-syslog
+syslog-ng
 =========
 
-Настройка syslog для отправки событий на удалённый сервер. Выполняется при наличии значения переменной SYSLOG_IP.
+Настройка syslog-ng для отправки событий на удалённый сервер. Выполняется при наличии значения переменной SYSLOG_IP.
 
 Requirements
 ------------
@@ -13,6 +13,8 @@ Role Variables
 
 Переменные group vars:
 - SYSLOG_IP
+- SYSLOG_PORT
+- SYSLOG_PROTO
 
 Dependencies
 ------------

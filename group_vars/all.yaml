@@ -21,6 +21,8 @@
 
   # SYSLOG settings
   SYSLOG_IP: 192.168.100.104  # Optional value
+  SYSLOG_PORT: 514
+  SYSLOG_PROTO: udp
 
   # APT packages settings
   pkg2remove:
