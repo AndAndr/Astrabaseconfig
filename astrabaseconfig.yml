@@ -1,7 +1,7 @@
 ---
 - name: Astra SE Linux base config
   gather_facts: yes
-  hosts: playground
+  hosts: yar-zdu-app
   become: yes
   roles:
     - role: resolvconf
@@ -39,4 +39,7 @@
       when: ansible_os_family == "Astra Linux"
     - role: sshd
       tags: sshd
+      when: ansible_os_family == "Astra Linux"
+    - role: systemd
+      tags: systemd
       when: ansible_os_family == "Astra Linux"

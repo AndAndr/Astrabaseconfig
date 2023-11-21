@@ -1,0 +1,17 @@
+---
+# Set "CtrlAltDelBurstAction" to perform "reboot-force" if ctrl-alt-delete key combination is pressed on a condition
+# that user presses the keys more than 7 times in 2 seconds
+  - name: Setting CtrlAltDelBurstAction=reboot-force
+    ansible.builtin.lineinfile:
+      path: /etc/systemd/system.conf
+      state: present
+      line: 'CtrlAltDelBurstAction=reboot-force'
+      regexp: '^CtrlAltDelBurstAction='
+      insertafter: '^#CtrlAltDelBurstAction'
+# Mask ctrl-alt-del.target to disable reboot via ctrl-alt-del combination
+  - name: mask ctrl-alt-del.target
+    ansible.builtin.systemd:
+      masked: true
+      daemon_reload: true
+      name: ctrl-alt-del.target
+
