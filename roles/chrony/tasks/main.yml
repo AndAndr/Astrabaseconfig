@@ -3,12 +3,12 @@
     ansible.builtin.lineinfile:
       path: /etc/chrony/chrony.conf
       state: absent
-      regexp: '^server(.*)'
+      regexp: '^server.*$'
   - name: Remove Astra default "pool" directive from /etc/chrony/chrony.conf
     ansible.builtin.lineinfile:
       path: /etc/chrony/chrony.conf
       state: absent
-      regexp: '^pool(.*)'
+      regexp: '^pool.*$'
   - name: Edit line /etc/chrony/chrony.conf - Add NTP1
     ansible.builtin.lineinfile:
       path: /etc/chrony/chrony.conf
