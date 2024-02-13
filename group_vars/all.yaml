@@ -28,14 +28,17 @@
   pkg2remove:
   - logcheck
   - ntp
+  - nmbd
   pkg2install:
   - chrony
   - snmpd
-  - nscd
-  - mc
   - exim4
   - bsd-mailx
   - dnsutils
+  - syslog-ng
+  - htop
+  - iftop
+  - nscd
 
   # Zabbix settings. If you dont want to install/configure zabbix-agent you must remove value.
   zabbix_IP: 192.168.100.105  # Optional value

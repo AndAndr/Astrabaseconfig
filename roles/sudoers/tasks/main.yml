@@ -8,4 +8,5 @@
       line: 'Defaults	mailto="{{ admins_email }}"'
       regexp: '^Defaults.*mailto='
       insertbefore: '^# Host alias specification'
+      validate: /usr/sbin/visudo -cf %s
     become: yes
