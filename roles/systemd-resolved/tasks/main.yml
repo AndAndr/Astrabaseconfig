@@ -1,0 +1,7 @@
+---
+  - name: Start systemd-resolved.service
+    ansible.builtin.systemd_service:
+      enabled: false
+      masked: true
+      state: stopped
+      name: systemd-resolved.service

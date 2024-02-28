@@ -1,0 +1,4 @@
+---
+  - name: run update-ca-certificates
+    ansible.builtin.shell: /usr/sbin/update-ca-certificates
+

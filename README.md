@@ -15,13 +15,14 @@ Ansible playbook baseconfig for AstraLinux SE
 11. Настройка sudoers для отправки почтовых сообщений - **sudoers**
 12. Настройка sshd для показа баннера - **sshd**
 13. Настройка systemd для определения реакции ОС на нажатие ctrl+alt+del - **systemd**
-
+14. Установка CA сертификатов - **ca-certs**
 
 роли **resolvconf, astra-repo, pkgs-mgmt** должны выполняться до выполнения остальных ролей
 
 ## Перед использованием нужно:
 - скорректировать файл group_vars/all.yaml, настроив его переменные под свои нужды
 - добавить дистрибутив .deb агента Касперского в каталог roles/klnagent/files/tmp/klnagent/
+- добавить сертификаты в каталог /roles/ca-certs/files/usr/local/share/ca-certificates/
 
 ## usage:
 - `ansible-playbook astrabaseconfig.yml`
