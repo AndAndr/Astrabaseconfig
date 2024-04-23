@@ -1,7 +1,8 @@
-chrony
+systemd-resolved
 =========
 
-Настройка chrony: удаление дефолтных серверов, добавление внутренних серверов времени.
+Выключение systemd-resolved.
+
 
 Requirements
 ------------
@@ -11,8 +12,7 @@ Requirements
 Role Variables
 --------------
 
-Переменные group vars:
-- NTP_IP
+Нет.
 
 Dependencies
 ------------
@@ -22,9 +22,11 @@ Dependencies
 Example Playbook
 ----------------
 
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
     - hosts: servers
       roles:
-         - { role: chrony }
+         - { role: systemd-resolved }
 
 License
 -------

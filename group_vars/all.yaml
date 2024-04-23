@@ -14,9 +14,10 @@
   - deb http://astra.some.domain/repo3/ 1.7_x86-64  main contrib non-free
 
   # DNS settings. Minimum IP = 1 Maximum IP = 3
-  DNS_IP1: 192.168.100.101  #Must have
-  DNS_IP2: 192.168.100.102  # Optional value
-  DNS_IP3: 192.168.100.103  # Optional value
+  DNS_IP:
+  - 192.168.200.1
+  - 192.168.200.2
+  - 192.168.200.3
   DNS_searchname: some.domain. some.domain2.   # Optional value. With dots - normalno
 
   # SYSLOG settings
@@ -29,6 +30,8 @@
   - logcheck
   - ntp
   - nmbd
+  - zabbix-agent
+
   pkg2install:
   - chrony
   - snmpd
@@ -39,14 +42,15 @@
   - htop
   - iftop
   - nscd
+  - auditd
 
   # Zabbix settings. If you dont want to install/configure zabbix-agent you must remove value.
   zabbix_IP: 192.168.100.105  # Optional value
 
   # NTP Time Sources settings. Minimum NTP Hosts = 1 Maximum NTP Hosts = 3
-  NTP_IP1: 192.168.100.106
-  NTP_IP2:  # Optional value
-  NTP_IP3:  # Optional value
+  NTP_IP:
+  - 192.168.200.1
+  - 192.168.200.2
 
   # SNMP monitoring settings
   SNMP_sysLocation: SomeLocation

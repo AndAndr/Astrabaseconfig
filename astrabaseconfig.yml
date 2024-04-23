@@ -16,6 +16,9 @@
     - role: pkgs-mgmt
       tags: pkgs-mgmt
       when: ansible_os_family == "Astra Linux"
+    - role: auditd
+      tags: auditd
+      when: ansible_os_family == "Astra Linux"
     - role: syslog-ng
       tags: syslog-ng
       when: ansible_os_family == "Astra Linux"
@@ -28,8 +31,8 @@
     - role: exim4
       tags: exim4
       when: ansible_os_family == "Astra Linux"
-    - role: zabbix-agent
-      tags: zabbix_agent
+    - role: zabbix-agent2
+      tags: zabbix_agent2
       when: ansible_os_family == "Astra Linux"
     - role: klnagent
       tags: klnagent

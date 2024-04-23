@@ -21,27 +21,16 @@
       line: 'search {{ DNS_searchname }}'
       regexp: '^search'
   - name: Remove nameserver line from /etc/resolv/conf
+    when: DNS_IP != None
     ansible.builtin.lineinfile:
       path: /etc/resolv.conf
       state: absent
       regexp: '^nameserver(.*)'
-  - name: Add NS1 in /etc/resolv.conf
+  - name: Add NS in /etc/resolv.conf
+    when: DNS_IP != None
     ansible.builtin.lineinfile:
       path: /etc/resolv.conf
       state: present
-      line: 'nameserver {{ DNS_IP1 }}'
-      regexp: '^nameserver {{ DNS_IP1 }}'
-  - name: Add NS2 in /etc/resolv.conf
-    when: DNS_IP2 != None
-    ansible.builtin.lineinfile:
-      path: /etc/resolv.conf
-      state: present
-      line: 'nameserver {{ DNS_IP2 }}'
-      regexp: '^nameserver {{ DNS_IP2 }}'
-  - name: Add NS3 in /etc/resolv.conf
-    when: DNS_IP3 != None
-    ansible.builtin.lineinfile:
-      path: /etc/resolv.conf
-      state: present
-      line: 'nameserver {{ DNS_IP3 }}'
-      regexp: '^nameserver {{ DNS_IP3 }}'
+      line: 'nameserver {{ item }}'
+    with_items:
+    - "{{ DNS_IP }}"

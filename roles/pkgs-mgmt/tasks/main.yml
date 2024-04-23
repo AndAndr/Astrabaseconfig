@@ -25,10 +25,10 @@
       name: open-vm-tools
       state: latest
       update_cache: no
-  - name: Install zabbix-agent, if host is configured in variable "zabbix_IP"
+  - name: Install zabbix-agent2, if host is configured in variable "zabbix_IP"
     when: zabbix_IP != None
     ansible.builtin.apt:
-      name: zabbix-agent
+      name: zabbix-agent2
       state: latest
       update_cache: no
 

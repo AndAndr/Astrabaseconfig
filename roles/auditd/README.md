@@ -1,13 +1,13 @@
-systemd
+auditd
 =========
 
-Настройка systemd для отключения перезагрузки при нажатии ctrl+alt+del. Явное включение перезагрузки при нажатии ctrl+alt+del более 7 раз за 2 секунды.
+Настройка auditd
 
 
 Requirements
 ------------
 
-Нет.
+Разместить файлы с правилами в /roles/auditd/files/etc/audit/rules.d/
 
 Role Variables
 --------------
@@ -26,7 +26,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: systemd }
+         - { role: auditd }
 
 License
 -------

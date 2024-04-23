@@ -1,4 +1,4 @@
-zabbix-agent
+zabbix-agent2
 =========
 
 Настройка агента для привязки к серверу Zabbix. Стартует, если определено значение переменной zabbix_IP.
@@ -24,7 +24,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: zabbix-agent }
+         - { role: zabbix-agent2 }
 
 License
 -------

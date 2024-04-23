@@ -11,10 +11,8 @@ Requirements
 Role Variables
 --------------
 
-DNS_searchname - переменная должна содержать суффиксы поиска.
-- DNS_IP1 - 1-й DNS
-- DNS_IP2 - 2-й DNS если нет, можно не указывать
-- DNS_IP3 - 3-й DNS если нет,можно не указывать
+- DNS_searchname - переменная должна содержать суффиксы поиска.
+- DNS_IP - список серверов DNS.
 
 Dependencies
 ------------

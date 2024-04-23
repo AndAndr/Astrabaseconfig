@@ -1,6 +1,6 @@
 ---
-  - name: restart zabbix-agent
+  - name: restart auditd
     ansible.builtin.systemd:
-      name: zabbix-agent
+      name: auditd.service
       state: restarted
     become: yes

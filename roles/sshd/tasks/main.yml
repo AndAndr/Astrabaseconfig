@@ -6,6 +6,8 @@
       owner: root
       group: root
       mode: '0644'
+    notify:
+    - restart sshd.service
   - name: Add banner directive in sshd_config
     ansible.builtin.lineinfile:
       path: /etc/ssh/sshd_config

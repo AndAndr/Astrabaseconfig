@@ -1,0 +1,58 @@
+---
+#  - name: Gather Services facts
+#    service_facts:
+  - name: Install auditd
+    ansible.builtin.apt:
+      name: auditd
+      state: present
+      update_cache: yes
+      policy_rc_d: 101
+  - name: Check audit daemon name
+    register: audit_daemon_name
+    ansible.builtin.shell:
+      cmd: auditctl -s | grep pid | grep -Po '[0-9]+' | xargs -n1 ps -o comm= -q
+    ignore_errors: yes
+  - name: Start auditd
+    when: audit_daemon_name.stdout != "kesl"
+    ansible.builtin.service:
+      name: auditd
+      state: started
+      enabled: yes
+  - name: Edit line /etc/audit/auditd.conf - log_format = ENRICHED
+    when: audit_daemon_name.stdout != "kesl"
+    ansible.builtin.lineinfile:
+      path: /etc/audit/auditd.conf
+      state: present
+      line: 'log_format = ENRICHED'
+      regexp: '^log_format'
+    notify:
+    - restart auditd
+  - name: Edit line /etc/audit/auditd.conf - name_format = NUMERIC
+    when: audit_daemon_name.stdout != "kesl"
+    ansible.builtin.lineinfile:
+      path: /etc/audit/auditd.conf
+      state: present
+      line: 'name_format = NUMERIC'
+      regexp: '^name_format'
+    notify:
+    - restart auditd
+  - name: Edit line /etc/audit/auditd.conf - disp_qos = lossless
+    when: audit_daemon_name.stdout != "kesl"
+    ansible.builtin.lineinfile:
+      path: /etc/audit/auditd.conf
+      state: present
+      line: 'disp_qos = lossless'
+      regexp: '^disp_qos'
+    notify:
+    - restart auditd
+  - name: Copy audit.rules files
+    when: audit_daemon_name.stdout != "kesl"
+    ansible.builtin.copy:
+      src: "{{ item }}"
+      dest: /etc/audit/rules.d/
+      owner: root
+      group: root
+      mode: '0640'
+    with_fileglob: "files/etc/audit/rules.d/*.rules"
+    notify:
+    - restart auditd

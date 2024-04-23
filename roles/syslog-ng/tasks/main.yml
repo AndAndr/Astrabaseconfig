@@ -1,19 +1,66 @@
 ---
 # SYSLOG-NG forward settings
-  - name: Add line1 to /etc/syslog-ng/syslog-ng.conf
+  - name: Gather Services facts
+    service_facts:
+  - name: Stop rsyslog service
+    when: "'rsyslog' in services and SYSLOG_IP != None"
+    ansible.builtin.service:
+      name: rsyslog
+      state: stopped
+      enabled: no
+  - name: Remove rsyslog
+    when: "'rsyslog' in services and SYSLOG_IP != None"
+    ansible.builtin.apt:
+      name: rsyslog
+      state: absent
+      update_cache: yes
+      cache_valid_time: 600
+  - name: Install syslog-ng
     when: SYSLOG_IP != None
-    ansible.builtin.lineinfile:
-      path: /etc/syslog-ng/syslog-ng.conf
-      state: present
-      line: 'log { source(s_src); destination(d_net); };'
-      insertafter: '^# All messages send to a remote site$'
-  - name: Add line2 to /etc/syslog-ng/syslog-ng.conf
+    ansible.builtin.apt:
+      name: syslog-ng
+      state: latest
+      update_cache: no
+  - name: Add comment1
     when: SYSLOG_IP != None
-    ansible.builtin.lineinfile:
-      path: /etc/syslog-ng/syslog-ng.conf
-      state: present
-      line: 'destination d_net { {{ SYSLOG_PROTO }}("{{ SYSLOG_IP }}" port({{ SYSLOG_PORT }}) log_fifo_size(1000)); };'
-      insertafter: '^# Send the messages to an other host$'
+    ansible.builtin.replace:
+      dest: /etc/syslog-ng/syslog-ng.conf
+      replace: '#\1'
+      regexp: '(^log\s*{\s*source\(s_src\);\s*destination\(d_net\);\s*};$)'
     notify:
     - restart syslog-ng
-
+  - name: Add comment2
+    when: SYSLOG_IP != None
+    ansible.builtin.replace:
+      dest: /etc/syslog-ng/syslog-ng.conf
+      replace: '#\1'
+      regexp: '(^destination\s*d_net.+$)'
+    notify:
+    - restart syslog-ng
+  - name: Add SRC /etc/syslog-ng/syslog-ng.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/syslog-ng/syslog-ng.conf
+      state: present
+      line: 'source s_auditd { file("/var/log/audit/audit.log" program_override("tag_auditd_{{ ansible_default_ipv4.address }}: ") persist-name("tag_auditd_{{ ansible_default_ipv4.address }} ")); };'
+      regexp: '^source.+auditd.+$'
+    notify:
+    - restart syslog-ng
+  - name: Add DST /etc/syslog-ng/syslog-ng.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/syslog-ng/syslog-ng.conf
+      state: present
+      line: 'destination rd_syslog_u { {{ SYSLOG_PROTO }}("{{ SYSLOG_IP }}" port({{ SYSLOG_PORT }}) log_fifo_size(1000)); };'
+      regexp: '^destination.+udp.*$|^destination.+tcp.*$'
+    notify:
+    - restart syslog-ng
+  - name: Add LOG /etc/syslog-ng/syslog-ng.conf
+    when: SYSLOG_IP != None
+    ansible.builtin.lineinfile:
+      path: /etc/syslog-ng/syslog-ng.conf
+      state: present
+      line: 'log { source(s_auditd); destination(rd_syslog_u); };'
+      regexp: '^log.+auditd.+$'
+    notify:
+    - restart syslog-ng
